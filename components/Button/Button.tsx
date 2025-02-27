@@ -1,6 +1,5 @@
-import { Fragment } from "react";
 import clsx from "clsx";
-import { Text, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable } from "react-native";
 interface ButtonProps {
 	text: string;
 	type: ButtonType,
