@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+import clsx from "clsx";
 import { Text, Pressable, StyleSheet } from "react-native";
 interface ButtonProps {
 	text: string;
@@ -20,99 +22,46 @@ function CustomButton({ text, type, trailingIcon, leadingIcon, onClick }: Button
 	return (
 		<Pressable
 			onPress={onClick}
-			style={getButtonStyle(type)}
+			className={getButtonClassName(type)}
+			disabled={type === ButtonType.PrimeDisabled || type === ButtonType.SolidDisabled || type === ButtonType.RaisedDisabled}
 			>
 			{leadingIcon}
-			<Text style={getButtonTextStyle(type)}>{text}</Text>
+			<Text className={getButtonTextClassName(type)}>{text}</Text>
 			{trailingIcon}
 		</Pressable>
 	);
 }
 
-function getButtonStyle(type: ButtonType) {
-	switch (type) {
-		case ButtonType.Prime:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.prime});
-		case ButtonType.Solid:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.solid});
-		case ButtonType.PrimeDisabled:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.prime, ...ButtonStyle.disabled});
-		case ButtonType.SolidDisabled:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.solid, ...ButtonStyle.disabled});
-		case ButtonType.Raised:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.raised});
-		case ButtonType.RaisedDisabled:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.raised, ...ButtonStyle.disabled});
-		default:
-			return StyleSheet.flatten({...ButtonStyle.button, ...ButtonStyle.prime});
-	}
+function getButtonClassName(type: ButtonType) {
+	return clsx(
+		"flex flex-row items-center justify-center h-10 px-3 rounded-md gap-1",
+		{
+			[ButtonType.Prime]: "bg-purple-600",
+			[ButtonType.PrimeDisabled]: "bg-gray-200",
+
+			[ButtonType.Solid]: "bg-blue-500",
+			[ButtonType.SolidDisabled]: "bg-gray-200",
+
+			[ButtonType.Raised]: "bg-white border border-blue-500",
+			[ButtonType.RaisedDisabled]: "bg-gray-200 border border-gray-500",
+		}[type] || "bg-purple-600"
+	);
 }
 
-function getButtonTextStyle(type: ButtonType) {
-	switch (type) {
-		case ButtonType.Prime:
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.prime});
-		case ButtonType.Solid:
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.solid});
-		case ButtonType.PrimeDisabled:
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.prime, ...ButtonTextStyle.disabled});
-		case ButtonType.SolidDisabled:	
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.solid, ...ButtonTextStyle.disabled});
-		case ButtonType.Raised:
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.raised});
-		case ButtonType.RaisedDisabled:
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.raised, ...ButtonTextStyle.disabled});
-		default:
-			return StyleSheet.flatten({...ButtonTextStyle.button, ...ButtonTextStyle.prime});
-	}
+function getButtonTextClassName(type: ButtonType) {
+	return clsx(
+		"text-base font-roboto",
+		{
+			[ButtonType.Prime]: "text-white",
+			[ButtonType.PrimeDisabled]: "text-gray-600",
+
+			[ButtonType.Solid]: "text-white",
+			[ButtonType.SolidDisabled]: "text-gray-600",
+
+			[ButtonType.Raised]: "text-blue-500",
+			[ButtonType.RaisedDisabled]: "text-gray-600",
+		}[type] || "text-white"
+	);
 }
 
-const ButtonTextStyle = StyleSheet.create({
-	button: {
-		fontSize: 16,
-		fontFamily: "Roboto",
-	},
-	prime: {
-		color: "white",
-	},
-	solid: {
-		color: "white",
-	},
-	raised: {
-		color: "#199FD9",
-	},
-	disabled: {
-		color: "gray",
-	}
-});
-
-const ButtonStyle = StyleSheet.create({
-	button: {
-		alignItems: "center",
-		justifyContent: "center",
-		height: 40,
-		borderRadius: 4,
-		padding: 8,
-		display: "flex",
-		flexDirection: "row",
-		gap: 4
-	},
-	prime: {
-		backgroundColor: "purple",
-		borderRadius: 4
-	},
-	solid: {
-		backgroundColor: "#199FD9",
-	},
-	raised: {
-		backgroundColor: "white",
-		borderWidth: 1,
-		borderColor: "#199FD9",
-	},
-	disabled: {
-		backgroundColor: "lightgray",
-		borderWidth: 1,
-		borderColor: "gray",
-	}
-});
 export default CustomButton;
