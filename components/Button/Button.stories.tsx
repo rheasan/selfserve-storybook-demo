@@ -1,30 +1,65 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import React from "react";
 import { View } from "react-native";
-import { MyButton } from "./Button";
+import CustomButton, { ButtonType }  from "./Button";
 
-const meta = {
-  title: "MyButton",
-  component: MyButton,
-  args: {
-    text: "Hello world",
-  },
-  decorators: [
-    (Story) => (
-      <View style={{ padding: 16 }}>
-        <Story />
-      </View>
-    ),
-  ],
-} satisfies Meta<typeof MyButton>;
+const meta: Meta<typeof CustomButton> = {
+	component : CustomButton,
+	decorators: [
+		Story => (
+			<View style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 300 }}>
+				<Story />
+			</View>
+		)
+	],
+}
 
 export default meta;
+type Story = StoryObj<typeof CustomButton>;
 
-type Story = StoryObj<typeof meta>;
+export const Prime: Story = {
+	args: {
+		text: "Prime button",
+		onClick: () => {},
+		type: ButtonType.Prime,
+	}
+}
 
-export const Basic: Story = {
-  args: {
-    onPress: action("onPress"),
-  },
-};
+export const PrimeDisabled: Story = {
+	args: {
+		text: "Prime Button Disabled",
+		type: ButtonType.PrimeDisabled,
+		onClick: () => {},
+	}
+}
+
+export const Solid: Story = {
+	args: {
+		text: "Solid Button",
+		type: ButtonType.Solid,
+		onClick: () => {},
+	}
+}
+
+export const SolidDisabled: Story = {
+	args: {
+		text: "Solid Button Disabled",
+		type: ButtonType.SolidDisabled,
+		onClick: () => {},
+	}
+}
+
+export const Raised: Story = {
+	args: {
+		text: "Raised Button",
+		type: ButtonType.Raised,
+		onClick: () => {},
+	}
+}
+
+export const RaisedDisabled: Story = {
+	args: {
+		text: "Raised Button Disabled",
+		type: ButtonType.RaisedDisabled,
+		onClick: () => {},
+	}
+}
