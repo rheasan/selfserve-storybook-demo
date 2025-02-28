@@ -1,8 +1,7 @@
 import { Text, View } from "react-native";
 import clsx from "clsx";
-import { SuccessBold } from "./Label.stories";
 
-interface CustomLabelProps {
+export interface CustomLabelProps {
 	text: String,
 	type: LabelType,
 	additionalClassName?: String
@@ -28,7 +27,7 @@ function CustomLabel({ text, type, additionalClassName }: CustomLabelProps) {
 
 function getLabelClassName(type: LabelType, additionalClassName: String | undefined) {
 	return clsx(
-		"text-base font-roboto p-4",
+		"text-base font-roboto p-4 rounded-sm",
 		{
 			[LabelType.Base]: "text-black",
 			[LabelType.Success]: "text-blue-500",
@@ -47,11 +46,11 @@ function getViewClassName(type: LabelType) {
 		{
 			[LabelType.Base]: "",
 			[LabelType.Success]: "bg-blue-100",
-			[LabelType.SuccessBold]: "bg-blue-100 font-bold",
+			[LabelType.SuccessBold]: "bg-blue-100 font-extrabold",
 			[LabelType.Active]: "bg-green-100",
 			[LabelType.Expired]: "bg-red-100",
-			[LabelType.ActiveBold]: "bg-green-100 font-bold",
-			[LabelType.ExpiredBold]: "bg-red-100 font-bold",
+			[LabelType.ActiveBold]: "bg-green-100 font-extrabold",
+			[LabelType.ExpiredBold]: "bg-red-100 font-extrabold",
 		}[type] || "white"
 	)
 }

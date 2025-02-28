@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Text, Pressable } from "react-native";
-interface ButtonProps {
+export interface ButtonProps {
 	text: string;
 	type: ButtonType,
 	trailingIcon?: React.ReactNode;
